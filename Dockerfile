@@ -7,5 +7,5 @@ RUN mvn -DskipTests clean package
 FROM eclipse-temurin:25-jre
 WORKDIR /app
 EXPOSE 8080
-COPY --from=build /workspace/target/ms-books-payments-0.0.1-SNAPSHOT.jar app.jar
+COPY --from=build /workspace/target/*.jar app.jar
 ENTRYPOINT ["java","-jar","app.jar"]
