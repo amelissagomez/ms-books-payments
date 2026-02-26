@@ -2,6 +2,8 @@ package com.unir.payments.client;
 
 
 import com.unir.payments.dto.BookValidationResponse;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
 
@@ -10,9 +12,10 @@ public class CatalogueClient {
 
     private final RestClient restClient;
 
-    public CatalogueClient(RestClient.Builder builder) {
+    public CatalogueClient(@LoadBalanced RestClient.Builder builder,
+                           @Value("${catalogue.base-url}") String baseUrl) {
         this.restClient = builder
-                .baseUrl("http://localhost:8081/api/v1/internal/books")
+                .baseUrl(baseUrl)
                 .build();
     }
 

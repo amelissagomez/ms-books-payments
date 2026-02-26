@@ -2,20 +2,23 @@ spring:
   application:
     name: ms-books-payments
   datasource:
-    url: jdbc:h2:file:./data/payment-db;MODE=MySQL
-  jpa:
-    show-sql: true
-    hibernate:
-      ddl-auto: create-drop
-    defer-datasource-initialization: true
-  h2:
-    console:
-      enabled: true
-      path: /h2-console
-      settings:
-        web-allow-others: true
+    url: ${DB_URL}
+    username: ${DB_USER}
+    password: ${DB_PWD}
 
-## Configuracion de Instancia 
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+## URL del servicio de catalogo
+catalogue:
+  base-url: ${CATALOGUE_URL:http://MS-BOOKS-CATALOGUE/api/v1/internal/books}
+
+## Configuracion de Instancia
 server:
   port: 8082
 
