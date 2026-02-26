@@ -16,7 +16,7 @@ spring:
 
 ## URL del servicio de catalogo
 catalogue:
-  base-url: ${CATALOGUE_URL:http://MS-BOOKS-CATALOGUE/api/v1/internal/books}
+  base-url: ${CATALOGUE_URL}
 
 ## Configuracion de Instancia
 server:
@@ -26,7 +26,7 @@ server:
 eureka:
   client:
     service-url:
-      defaultZone: ${EUREKA_URL:http://localhost:8761/eureka}
+      defaultZone: ${EUREKA_URL}
   instance:
     preferIpAddress: true
     hostname: ms-books-payments
