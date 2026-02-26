@@ -1,11 +1,16 @@
-FROM maven:3.9.12-eclipse-temurin-25 AS build
-WORKDIR /app
+# --- build stage ---
+FROM maven:3.9-eclipse-temurin-21 AS build
+WORKDIR /workspace
 COPY pom.xml .
 COPY src ./src
-RUN mvn -DskipTests clean package
+RUN mvn -q -DskipTests package
 
-FROM eclipse-temurin:25-jre
+# --- run stage ---
+FROM eclipse-temurin:21-jre
 WORKDIR /app
+
+ARG JAR_FILE=/workspace/target/*.jar
+COPY --from=build ${JAR_FILE} app.jar
+
 EXPOSE 8080
-COPY --from=build /target/ms-books-payments-0.0.1-SNAPSHOT.jar app.jar
 ENTRYPOINT ["java","-jar","app.jar"]
